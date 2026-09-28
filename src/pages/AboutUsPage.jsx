@@ -4,8 +4,7 @@ import AboutSidebar from '../components/about/AboutSidebar';
 import WhoWeAre from '../components/about/WhoWeAre';
 import FoundingPrinciples from '../components/about/FoundingPrinciples';
 import OurHistory from '../components/about/OurHistory';
-import BoardOfDirectors from '../components/about/BoardofDirectors';
-
+import BoardOfDirectors from '../components/about/BoardOfDirectors';
 const AboutUsPage = () => {
   return (
     <div className="bg-white">
