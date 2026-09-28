@@ -25,8 +25,8 @@ const Navbar = () => {
     <header className="bg-white shadow-sm sticky top-0 z-[100] w-full">
       <div className="container mx-auto px-4 lg:px-8 h-20 flex items-center justify-between">
         {/* Logo Section */}
-       <Link to="/" className="cursor-pointer" onClick={handleMobileLinkClick}>
-  <Logo className="h-10 md:h-12 w-auto" />
+      <Link to="/" className="cursor-pointer" onClick={handleMobileLinkClick}>
+  <Logo className="w-[140px] h-auto sm:w-[160px] md:w-[180px]" />
 </Link>
 
         {/* Desktop Navigation Links */}
