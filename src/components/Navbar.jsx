@@ -30,7 +30,7 @@ const Navbar = () => {
   className="cursor-pointer shrink-0 flex items-center"
   onClick={handleMobileLinkClick}
 >
-  <Logo className="w-[130px] h-auto sm:w-[150px] md:w-[180px]" />
+ <Logo className="w-[130px] h-[52px] sm:w-[150px] sm:h-[60px] md:w-[180px] md:h-[69px]" />
 </Link>
 
         {/* Desktop Navigation Links */}
