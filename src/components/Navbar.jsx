@@ -23,10 +23,14 @@ const Navbar = () => {
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-[100] w-full">
-      <div className="container mx-auto px-4 lg:px-8 h-20 flex items-center justify-between">
+      <div className="container mx-auto px-4 lg:px-8 h-20 flex items-center justify-between gap-3">
         {/* Logo Section */}
-      <Link to="/" className="cursor-pointer" onClick={handleMobileLinkClick}>
-  <Logo className="w-[140px] h-auto sm:w-[160px] md:w-[180px]" />
+  <Link
+  to="/"
+  className="cursor-pointer shrink-0 flex items-center"
+  onClick={handleMobileLinkClick}
+>
+  <Logo className="w-[130px] h-auto sm:w-[150px] md:w-[180px]" />
 </Link>
 
         {/* Desktop Navigation Links */}
@@ -48,7 +52,7 @@ const Navbar = () => {
         </nav>
 
         {/* Right Actions */}
-        <div className="flex items-center gap-4 lg:gap-6">
+       <div className="flex items-center gap-2 sm:gap-4 lg:gap-6 shrink-0">
           <Link to="/contact" className="hidden sm:flex bg-brand-olive text-white px-5 py-2 rounded-full text-sm font-medium items-center gap-2 hover:bg-opacity-90 transition-all">
             Contact Us
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
