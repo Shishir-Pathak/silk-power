@@ -1,36 +1,93 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const directors = [
-  { name: 'Mr. Kumar Kharel', role: 'Chairman' },
-  { name: 'Mr. Kunal Kayal', role: 'Director' },
-  { name: 'Mr. Mukti Bodh Neupane', role: 'Director' },
-];
+const DefaultAvatar = () => (
+  <svg
+    className="w-full h-full text-gray-300"
+    viewBox="0 0 100 100"
+    fill="currentColor"
+  >
+    <circle cx="50" cy="35" r="20" />
+    <path d="M15 95c2-25 15-38 35-38s33 13 35 38H15z" />
+  </svg>
+);
 
 const BoardOfDirectors = () => {
+  const [members, setMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBoardMembers = async () => {
+      try {
+        const response = await fetch(
+          'http://127.0.0.1:8000/api/about/board/'
+        );
+
+        if (!response.ok) {
+          throw new Error('Failed to load board members');
+        }
+
+        const data = await response.json();
+        setMembers(data);
+      } catch (error) {
+        console.error('Board members error:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBoardMembers();
+  }, []);
+
   return (
-    <section id="board-of-directors" className="scroll-mt-24 pb-16">
-      <div className="flex justify-between items-end mb-8">
-        <h2 className="text-3xl font-serif text-brand-maroon inline-block border-b-2 border-brand-green pb-1">Board of Directors</h2>
-        <div className="flex items-center gap-2">
-          <div className="w-12 h-px bg-brand-olive"></div>
-          <span className="text-[10px] text-brand-olive tracking-widest uppercase font-semibold">Our Guidance</span>
-        </div>
-      </div>
-      
-      <div className="flex flex-wrap justify-center gap-12 lg:gap-24">
-        {directors.map((director, index) => (
-          <div key={index} className="flex flex-col items-center">
-            {/* Avatar Placeholder */}
-            <div className="w-24 h-24 rounded-full bg-gray-900 flex items-center justify-center mb-4 relative overflow-hidden">
-              <svg className="w-16 h-16 text-gray-400 absolute bottom-0" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-              </svg>
+    <section id="board-of-directors" className="scroll-mt-24">
+      <h2 className="text-3xl font-serif text-brand-maroon mb-8 inline-block border-b-2 border-brand-green pb-1">
+        Board of Directors
+      </h2>
+
+      {loading ? (
+        <p className="text-sm text-gray-500">
+          Loading board members...
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {members.map((member) => (
+            <div
+              key={member.id}
+              className="bg-white border border-gray-100 rounded-lg overflow-hidden shadow-sm"
+            >
+              <div className="h-56 bg-gray-100 flex items-end justify-center overflow-hidden">
+                {member.photo ? (
+                  <img
+                    src={member.photo}
+                    alt={member.name}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-32 h-32">
+                    <DefaultAvatar />
+                  </div>
+                )}
+              </div>
+
+              <div className="p-5 text-center">
+                <h3 className="text-base font-semibold text-gray-800">
+                  {member.name}
+                </h3>
+
+                <p className="text-xs text-brand-olive mt-1 uppercase tracking-wide">
+                  {member.role}
+                </p>
+              </div>
             </div>
-            <h3 className="font-semibold text-gray-800 text-sm">{director.name}</h3>
-            <p className="text-xs text-gray-500">{director.role}</p>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
+
+      {!loading && members.length === 0 && (
+        <p className="text-sm text-gray-500">
+          No board members available.
+        </p>
+      )}
     </section>
   );
 };

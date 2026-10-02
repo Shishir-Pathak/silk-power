@@ -87,6 +87,15 @@ class SiteSettings(models.Model):
     )
 
     updated_at = models.DateTimeField(auto_now=True)
+    registered_office = models.CharField(
+    max_length=255,
+    default="Madhyapur Thimi Municipality, Ward No. 3, Bhaktapur, Nepal"
+    )
+
+    project_site = models.CharField(
+    max_length=255,
+    default="Khumbu-Pasang Lhamu Rural Municipality, Solukhumbu District, Nepal"
+    )
 
     class Meta:
         verbose_name = "Site Settings"
@@ -94,3 +103,263 @@ class SiteSettings(models.Model):
 
     def __str__(self):
         return self.company_name
+
+class AboutCompany(models.Model):
+    title = models.CharField(max_length=200, default='Who We Are')
+
+    paragraph_one = models.TextField()
+    paragraph_two = models.TextField()
+    paragraph_three = models.TextField(blank=True)
+
+    commitment_label = models.CharField(
+        max_length=100,
+        default='Our Commitment'
+    )
+
+    commitment_line_one = models.CharField(
+        max_length=100,
+        default='BUILDING'
+    )
+
+    commitment_line_two = models.CharField(
+        max_length=100,
+        default='A SUSTAINABLE'
+    )
+
+    commitment_line_three = models.CharField(
+        max_length=100,
+        default='TOMORROW'
+    )
+
+    image = models.ImageField(
+        upload_to='about/',
+        blank=True,
+        null=True
+    )
+
+    image_url = models.URLField(blank=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'About Company'
+        verbose_name_plural = 'About Company'
+
+
+class FoundingPrinciple(models.Model):
+    ICON_CHOICES = [
+        ('shield', 'Shield / Compliance'),
+        ('security', 'Security / Revenue'),
+        ('community', 'Community / People'),
+        ('growth', 'Growth / Long Term'),
+    ]
+
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+
+    icon = models.CharField(
+        max_length=30,
+        choices=ICON_CHOICES,
+        default='shield'
+    )
+
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return self.title
+
+
+class CompanyMilestone(models.Model):
+    year = models.CharField(max_length=20)
+    month = models.CharField(max_length=50, blank=True)
+    date = models.CharField(max_length=50, blank=True)
+    title = models.CharField(max_length=255)
+
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return f'{self.year} - {self.title}'
+
+
+class BoardMember(models.Model):
+    name = models.CharField(max_length=200)
+    role = models.CharField(max_length=100)
+
+    photo = models.ImageField(
+        upload_to='about/board/',
+        blank=True,
+        null=True
+    )
+
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return f'{self.name} - {self.role}'
+
+class BusinessOverview(models.Model):
+    title = models.CharField(
+        max_length=255,
+        default="Building a Cleaner, Stronger Nepal"
+    )
+
+    description = models.TextField()
+
+    core_business_label = models.CharField(
+        max_length=100,
+        default="Our Core Business"
+    )
+
+    core_business_title = models.CharField(
+        max_length=255,
+        default="Hydropower Development and Generation"
+    )
+
+    core_business_description = models.TextField()
+
+    image = models.ImageField(
+        upload_to="business/",
+        blank=True,
+        null=True
+    )
+
+    image_url = models.URLField(blank=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Business Overview"
+        verbose_name_plural = "Business Overview"
+
+
+class BusinessPillar(models.Model):
+    ICON_CHOICES = [
+        ("develop", "Develop"),
+        ("build", "Build"),
+        ("operate", "Operate"),
+        ("value", "Create Value"),
+    ]
+
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+
+    icon = models.CharField(
+        max_length=30,
+        choices=ICON_CHOICES,
+        default="develop"
+    )
+
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["order"]
+
+    def __str__(self):
+        return self.title
+
+
+class BusinessArea(models.Model):
+    ICON_CHOICES = [
+        ("hydropower", "Hydropower"),
+        ("renewable", "Renewable Energy"),
+        ("infrastructure", "Power Infrastructure"),
+        ("community", "Community & Shared Value"),
+    ]
+
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+
+    image = models.ImageField(
+        upload_to="business/areas/",
+        blank=True,
+        null=True
+    )
+
+    image_url = models.URLField(blank=True)
+
+    icon = models.CharField(
+        max_length=30,
+        choices=ICON_CHOICES,
+        default="hydropower"
+    )
+
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["order"]
+
+    def __str__(self):
+        return self.title
+
+class SustainabilityInitiative(models.Model):
+    ICON_CHOICES = [
+        ("environment", "Environmental"),
+        ("water", "Water"),
+        ("community", "Community"),
+        ("energy", "Renewable Energy"),
+    ]
+
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+
+    icon = models.CharField(
+        max_length=30,
+        choices=ICON_CHOICES,
+        default="environment"
+    )
+
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["order"]
+
+    def __str__(self):
+        return self.title
+
+
+class SustainabilityGalleryItem(models.Model):
+    title = models.CharField(max_length=200)
+
+    subtitle = models.CharField(
+        max_length=200,
+        blank=True
+    )
+
+    alt_text = models.CharField(
+        max_length=200,
+        blank=True
+    )
+
+    image = models.ImageField(
+        upload_to="sustainability/",
+        blank=True,
+        null=True
+    )
+
+    image_url = models.URLField(blank=True)
+
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["order"]
+
+    def __str__(self):
+        return self.title
+
