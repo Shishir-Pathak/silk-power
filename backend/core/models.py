@@ -72,3 +72,25 @@ class ContactSubmission(models.Model):
 
     def __str__(self):
         return f"{self.reference_number} - {self.first_name} {self.last_name}"
+
+
+class SiteSettings(models.Model):
+    company_name = models.CharField(
+        max_length=200,
+        default="Silk Power Limited"
+    )
+
+    logo = models.ImageField(
+        upload_to="site/",
+        blank=True,
+        null=True
+    )
+
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Site Settings"
+        verbose_name_plural = "Site Settings"
+
+    def __str__(self):
+        return self.company_name

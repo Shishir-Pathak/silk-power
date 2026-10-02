@@ -12,7 +12,12 @@ const ContactFormSection = () => {
     agreeTerms: false,
   });
 
-  const [status, setStatus] = useState({ submitted: false, loading: false, error: '' });
+  const [status, setStatus] = useState({
+  submitted: false,
+  loading: false,
+  error: '',
+  referenceNumber: ''
+  });
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -22,34 +27,100 @@ const ContactFormSection = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.firstName || !formData.email || !formData.message) {
-      setStatus({ submitted: false, loading: false, error: 'Please fill in all required fields.' });
-      return;
-    }
-    if (!formData.agreeTerms) {
-      setStatus({ submitted: false, loading: false, error: 'Please accept the privacy policy agreement.' });
-      return;
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!formData.firstName || !formData.email || !formData.message) {
+    setStatus({
+      submitted: false,
+      loading: false,
+      error: 'Please fill in all required fields.',
+      referenceNumber: '',
+    });
+    return;
+  }
+
+  if (!formData.agreeTerms) {
+    setStatus({
+      submitted: false,
+      loading: false,
+      error: 'Please accept the privacy policy agreement.',
+      referenceNumber: '',
+    });
+    return;
+  }
+
+  setStatus({
+    submitted: false,
+    loading: true,
+    error: '',
+    referenceNumber: '',
+  });
+
+  try {
+    const response = await fetch(
+      'http://127.0.0.1:8000/api/contact/',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          department: formData.department,
+          subject: formData.subject,
+          message: formData.message,
+          agreed_to_terms: formData.agreeTerms,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error('Contact API error:', data);
+
+      throw new Error(
+        data.detail ||
+        data.email?.[0] ||
+        data.message?.[0] ||
+        data.agreed_to_terms?.[0] ||
+        'Unable to submit your inquiry.'
+      );
     }
 
-    setStatus({ submitted: false, loading: true, error: '' });
+    setStatus({
+      submitted: true,
+      loading: false,
+      error: '',
+      referenceNumber: data.reference_number,
+    });
 
-    // Simulated network submit
-    setTimeout(() => {
-      setStatus({ submitted: true, loading: false, error: '' });
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        department: 'General Inquiries',
-        subject: '',
-        message: '',
-        agreeTerms: false,
-      });
-    }, 800);
-  };
+    setFormData({
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      department: 'General Inquiries',
+      subject: '',
+      message: '',
+      agreeTerms: false,
+    });
+
+  } catch (error) {
+    console.error('Contact submission error:', error);
+
+    setStatus({
+      submitted: false,
+      loading: false,
+      error: error.message || 'Unable to submit your inquiry. Please try again.',
+      referenceNumber: '',
+    });
+  }
+};
 
   return (
     <section className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-16">
@@ -135,8 +206,26 @@ const ContactFormSection = () => {
               <p className="text-gray-600 text-sm max-w-md mb-6 leading-relaxed">
                 Your message has been successfully received by the Silk Power communications team. An acknowledgment has been recorded and an officer will get back to you shortly.
               </p>
+              {status.referenceNumber && (
+  <div className="mb-6 px-5 py-3 rounded-xl bg-gray-50 border border-gray-200">
+    <span className="block text-[10px] uppercase tracking-wider text-gray-400 font-semibold mb-1">
+      Inquiry Reference Number
+    </span>
+
+    <span className="font-mono text-sm font-bold text-brand-maroon">
+      {status.referenceNumber}
+    </span>
+  </div>
+)}
               <button 
-                onClick={() => setStatus({ submitted: false, loading: false, error: '' })}
+                onClick={() =>
+  setStatus({
+    submitted: false,
+    loading: false,
+    error: '',
+    referenceNumber: '',
+  })
+}
                 className="bg-brand-olive hover:bg-brand-maroon text-white text-xs font-semibold px-6 py-2.5 rounded-full transition-colors"
               >
                 Send Another Message
