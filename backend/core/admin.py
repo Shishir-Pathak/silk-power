@@ -9,6 +9,8 @@ from .models import (
     BusinessOverview,
     BusinessPillar,
     BusinessArea,
+    SustainabilityInitiative,
+    SustainabilityGalleryItem,
 )
 
 
@@ -153,4 +155,37 @@ class BusinessPillarAdmin(admin.ModelAdmin):
 class BusinessAreaAdmin(admin.ModelAdmin):
     list_display = ("title", "icon", "order", "is_active")
     list_editable = ("order", "is_active")
+    ordering = ("order",)
+
+@admin.register(SustainabilityInitiative)
+class SustainabilityInitiativeAdmin(admin.ModelAdmin):
+    list_display = (
+        "title",
+        "icon",
+        "order",
+        "is_active",
+    )
+
+    list_editable = (
+        "order",
+        "is_active",
+    )
+
+    ordering = ("order",)
+
+
+@admin.register(SustainabilityGalleryItem)
+class SustainabilityGalleryItemAdmin(admin.ModelAdmin):
+    list_display = (
+        "title",
+        "subtitle",
+        "order",
+        "is_active",
+    )
+
+    list_editable = (
+        "order",
+        "is_active",
+    )
+
     ordering = ("order",)

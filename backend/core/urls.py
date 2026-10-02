@@ -12,6 +12,8 @@ from .views import (
     FoundingPrincipleListAPIView,
     CompanyMilestoneListAPIView,
     BoardMemberListAPIView,
+    SustainabilityInitiativeListAPIView,
+    SustainabilityGalleryListAPIView,
 )
 
 urlpatterns = [
@@ -64,6 +66,17 @@ path(
     "business/areas/",
     BusinessAreaListAPIView.as_view(),
     name="business-areas",
+),
+path(
+    "sustainability/initiatives/",
+    SustainabilityInitiativeListAPIView.as_view(),
+    name="sustainability-initiatives",
+),
+
+path(
+    "sustainability/gallery/",
+    SustainabilityGalleryListAPIView.as_view(),
+    name="sustainability-gallery",
 ),
     
 ]

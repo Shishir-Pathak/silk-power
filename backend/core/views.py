@@ -7,6 +7,8 @@ from .models import (
     BusinessOverview,
     BusinessPillar,
     BusinessArea,
+    SustainabilityInitiative,
+    SustainabilityGalleryItem,
 )
 from .serializers import (
     ContactSubmissionSerializer,
@@ -14,6 +16,8 @@ from .serializers import (
     BusinessOverviewSerializer,
     BusinessPillarSerializer,
     BusinessAreaSerializer,
+    SustainabilityInitiativeSerializer,
+    SustainabilityGalleryItemSerializer,
 )
 
 from .models import (
@@ -30,6 +34,22 @@ from .serializers import (
     BoardMemberSerializer,
 )
 
+class SustainabilityInitiativeListAPIView(generics.ListAPIView):
+    serializer_class = SustainabilityInitiativeSerializer
+
+    def get_queryset(self):
+        return SustainabilityInitiative.objects.filter(
+            is_active=True
+        )
+
+
+class SustainabilityGalleryListAPIView(generics.ListAPIView):
+    serializer_class = SustainabilityGalleryItemSerializer
+
+    def get_queryset(self):
+        return SustainabilityGalleryItem.objects.filter(
+            is_active=True
+        )
 
 class ContactSubmissionAPIView(CreateAPIView):
     queryset = ContactSubmission.objects.all()

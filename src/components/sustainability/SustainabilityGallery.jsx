@@ -1,31 +1,74 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const IMG = {
-  river: 'https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=1200&auto=format&fit=crop',
-  village: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop',
-  plant: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=1200&auto=format&fit=crop',
-  green: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1200&auto=format&fit=crop',
-};
-
-const Tile = ({ src, alt, lines }) => (
+const Tile = ({ src, alt, title, subtitle }) => (
   <div className="relative h-44 sm:h-[170px] overflow-hidden group">
-    <img src={src} alt={alt} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+    <img
+      src={src}
+      alt={alt}
+      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+    />
+
     <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+
     <p className="absolute left-5 bottom-3 text-white text-[10px] tracking-[0.14em] leading-snug uppercase">
-      {lines.map((l) => (
-        <span key={l} className="block">{l}</span>
-      ))}
+      <span className="block">{title}</span>
+
+      {subtitle && (
+        <span className="block">{subtitle}</span>
+      )}
     </p>
   </div>
 );
 
 const SustainabilityGallery = () => {
+  const [gallery, setGallery] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/api/sustainability/gallery/')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to load sustainability gallery');
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        setGallery(data);
+      })
+      .catch((error) => {
+        console.error('Sustainability gallery error:', error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="bg-white py-8">
+        <p className="text-center text-sm text-gray-500">
+          Loading gallery...
+        </p>
+      </section>
+    );
+  }
+
+  if (gallery.length === 0) {
+    return null;
+  }
+
   return (
     <section className="grid grid-cols-2 lg:grid-cols-4 gap-0.5 bg-white">
-      <Tile src={IMG.river} alt="Healthy river" lines={['HEALTHY RIVERS', 'BRIGHTER TOMORROWS']} />
-      <Tile src={IMG.village} alt="Stronger communities" lines={['STRONGER', 'COMMUNITIES']} />
-      <Tile src={IMG.plant} alt="Clean energy" lines={['CLEAN ENERGY', 'LASTING IMPACT']} />
-      <Tile src={IMG.green} alt="A greener Nepal" lines={['A GREENER', 'NEPAL']} />
+      {gallery.map((item) => (
+        <Tile
+          key={item.id}
+          src={item.image}
+          alt={item.alt_text || item.title}
+          title={item.title}
+          subtitle={item.subtitle}
+        />
+      ))}
     </section>
   );
 };
