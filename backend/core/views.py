@@ -1,13 +1,20 @@
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView, ListAPIView
 from rest_framework.permissions import AllowAny
-from .models import ContactSubmission, SiteSettings
+from rest_framework import generics
+from .models import (
+    ContactSubmission, 
+    SiteSettings,
+    BusinessOverview,
+    BusinessPillar,
+    BusinessArea,
+)
 from .serializers import (
     ContactSubmissionSerializer,
     SiteSettingsSerializer,
+    BusinessOverviewSerializer,
+    BusinessPillarSerializer,
+    BusinessAreaSerializer,
 )
-from .models import ContactSubmission
-from rest_framework.generics import RetrieveAPIView
-from rest_framework.generics import ListAPIView
 
 from .models import (
     AboutCompany,
@@ -64,4 +71,24 @@ class BoardMemberListAPIView(ListAPIView):
 
     def get_queryset(self):
         return BoardMember.objects.filter(is_active=True)
+
+class BusinessOverviewAPIView(generics.RetrieveAPIView):
+    serializer_class = BusinessOverviewSerializer
+
+    def get_object(self):
+        return BusinessOverview.objects.first()
+
+
+class BusinessPillarListAPIView(generics.ListAPIView):
+    serializer_class = BusinessPillarSerializer
+
+    def get_queryset(self):
+        return BusinessPillar.objects.filter(is_active=True)
+
+
+class BusinessAreaListAPIView(generics.ListAPIView):
+    serializer_class = BusinessAreaSerializer
+
+    def get_queryset(self):
+        return BusinessArea.objects.filter(is_active=True)
 
