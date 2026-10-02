@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import ContactSubmission
+from .models import ContactSubmission, SiteSettings
 
 
 @admin.register(ContactSubmission)
@@ -35,3 +36,10 @@ class ContactSubmissionAdmin(admin.ModelAdmin):
     )
 
     ordering = ('-submitted_at',)
+
+@admin.register(SiteSettings)
+class SiteSettingsAdmin(admin.ModelAdmin):
+    list_display = (
+        'company_name',
+        'updated_at',
+    )
