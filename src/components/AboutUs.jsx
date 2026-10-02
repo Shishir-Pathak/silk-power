@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const AboutUs = () => {
   return (
@@ -7,12 +8,12 @@ const AboutUs = () => {
       <p className="text-gray-600 text-sm leading-relaxed mb-6">
         Silk Power Limited is a Nepali hydropower and renewable energy company committed to harnessing the country's abundant water resources to generate clean, reliable, and affordable electricity.
       </p>
-      <a href="#" className="text-brand-olive font-semibold text-sm flex items-center gap-2 hover:text-brand-maroon transition-colors mt-auto">
+      <Link to="/about" className="text-brand-olive font-semibold text-sm flex items-center gap-2 hover:text-brand-maroon transition-colors mt-auto">
         Learn More
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
         </svg>
-      </a>
+      </Link>
       
       {/* Image Placeholder */}
       <div className="mt-8 rounded-xl overflow-hidden shadow-sm relative h-48">
