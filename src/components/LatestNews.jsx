@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const newsItems = [
   {
@@ -18,17 +19,17 @@ const LatestNews = () => {
     <div className="flex flex-col">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-3xl font-serif text-brand-maroon">Latest News</h2>
-        <a href="#" className="text-brand-olive font-semibold text-sm flex items-center gap-1 hover:text-brand-maroon">
+        <Link to="/media" className="text-brand-olive font-semibold text-sm flex items-center gap-1 hover:text-brand-maroon transition-colors">
           View All
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
-        </a>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {newsItems.map((news, index) => (
-          <div key={index} className="flex flex-col group cursor-pointer">
+          <Link to="/media" key={index} className="flex flex-col group cursor-pointer">
             <div className="rounded-xl overflow-hidden h-32 mb-3 relative">
               <img src={news.image} alt={news.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
             </div>
@@ -41,7 +42,7 @@ const LatestNews = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const documents = [
   { title: 'Annual Report 2024', date: 'April 30, 2025' },
@@ -30,12 +31,12 @@ const DocumentsFAQ = () => {
       <div>
         <div className="flex justify-between items-end mb-6">
           <h2 className="text-2xl font-serif text-brand-maroon inline-block border-b-2 border-brand-green pb-1">Key Investor Documents</h2>
-          <a href="#" className="text-brand-olive font-semibold text-sm flex items-center gap-1 hover:text-brand-maroon">
+          <Link to="/notices" className="text-brand-olive font-semibold text-sm flex items-center gap-1 hover:text-brand-maroon transition-colors">
             View All
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
-          </a>
+          </Link>
         </div>
 
         <div className="flex flex-col gap-3">

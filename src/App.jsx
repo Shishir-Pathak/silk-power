@@ -11,6 +11,9 @@ import OurBusinessPage from './pages/OurBusinessPage';
 import OurProjectsPage from './pages/OurProjectsPage'; 
 import SustainabilityPage from './pages/SustainabilityPage'; 
 import InvestorRelationsPage from './pages/InvestorRelationsPage';
+import ContactUsPage from './pages/ContactUsPage';
+import MediaPage from './pages/MediaPage';
+import NoticesPage from './pages/NoticesPage';
 import PlaceholderPage from './pages/PlaceholderPage';
 
 // ScrollToTop component for smooth navigation
@@ -60,10 +63,10 @@ function App() {
             <Route path="/sustainability" element={<SustainabilityPage />} />
             <Route path="/investor-relations" element={<InvestorRelationsPage />} />
             
-            {/* Placeholder Routes */}
-            <Route path="/notices" element={<PlaceholderPage title="Notices" />} />
-            <Route path="/media" element={<PlaceholderPage title="Media" />} />
-            <Route path="/contact" element={<PlaceholderPage title="Contact Us" />} />
+            {/* Core Feature Pages */}
+            <Route path="/notices" element={<NoticesPage />} />
+            <Route path="/media" element={<MediaPage />} />
+            <Route path="/contact" element={<ContactUsPage />} />
           </Routes>
         </ErrorBoundary>
       </Layout>
