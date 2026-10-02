@@ -1,6 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
+  const [project, setProject] = useState(null);
+
+  useEffect(() => {
+    const fetchProject = async () => {
+      try {
+        const response = await fetch(
+          "http://127.0.0.1:8000/api/projects/luja-khola-hydropower-project/"
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to load project");
+        }
+
+        const data = await response.json();
+        setProject(data);
+      } catch (error) {
+        console.error("Hero project error:", error);
+      }
+    };
+
+    fetchProject();
+  }, []);
   return (
     <section className="relative h-[600px] lg:h-[700px] w-full overflow-hidden flex items-center">
       {/* Background Image Placeholder */}
@@ -32,11 +55,15 @@ const Hero = () => {
           </h1>
 
           <p className="text-lg lg:text-xl text-gray-200 mb-10 max-w-xl font-light">
-            Developing the 24.8 MW Luja Khola Hydropower Project in Solukhumbu,
-            Nepal.
-          </p>
+  Developing the {project?.capacity || "24.8 MW"}{" "}
+  {project?.name || "Luja Khola Hydropower Project"} in{" "}
+  {project?.location || "Solukhumbu"}, Nepal.
+</p>
 
-          <button className="bg-brand-green text-black font-semibold px-8 py-4 rounded-full flex items-center gap-3 hover:bg-opacity-90 transition-all shadow-lg">
+          <Link
+  to="/projects"
+  className="bg-brand-green text-black font-semibold px-8 py-4 rounded-full flex items-center gap-3 hover:bg-opacity-90 transition-all shadow-lg w-fit"
+>
             Learn More
             <svg
               className="w-5 h-5"
@@ -51,7 +78,7 @@ const Hero = () => {
                 d="M14 5l7 7m0 0l-7 7m7-7H3"
               />
             </svg>
-          </button>
+          </Link>
         </div>
 
         {/* Right Side Graphics (Hidden on small screens) */}

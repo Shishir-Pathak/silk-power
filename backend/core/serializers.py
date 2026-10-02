@@ -50,6 +50,8 @@ class SiteSettingsSerializer(serializers.ModelSerializer):
         fields = [
             'company_name',
             'logo_url',
+            "registered_office",
+            "project_site",
         ]
 
     def get_logo_url(self, obj):
