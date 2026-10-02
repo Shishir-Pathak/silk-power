@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import NoticeToast from './NoticeToast';
 
 const categories = [
   'All Notices',
@@ -12,6 +13,19 @@ const NoticesList = ({ notices, onSelectNotice }) => {
   const [selectedCategory, setSelectedCategory] = useState('All Notices');
   const [statusFilter, setStatusFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [toast, setToast] = useState('');
+
+  const handleDownload = (notice) => {
+  if (notice.documentUrl) {
+    window.open(
+      notice.documentUrl,
+      '_blank',
+      'noopener,noreferrer'
+    );
+  } else {
+    setToast('The official PDF has not been uploaded yet.');
+  }
+};
 
   const filteredNotices = useMemo(() => {
     return notices.filter((notice) => {
@@ -32,18 +46,17 @@ const NoticesList = ({ notices, onSelectNotice }) => {
       {/* Search & Filter Bar */}
       <div className="bg-[#FAFBF9] rounded-2xl p-6 border border-gray-100 mb-8 shadow-xs">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
-          
+
           {/* Category Tabs */}
           <div className="flex flex-wrap items-center gap-2">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`text-xs font-semibold px-4 py-2 rounded-full transition-all cursor-pointer ${
-                  selectedCategory === cat
+                className={`text-xs font-semibold px-4 py-2 rounded-full transition-all cursor-pointer ${selectedCategory === cat
                     ? 'bg-brand-maroon text-white shadow-xs'
                     : 'bg-white text-gray-600 border border-gray-200 hover:border-brand-maroon hover:text-brand-maroon'
-                }`}
+                  }`}
               >
                 {cat}
               </button>
@@ -52,7 +65,7 @@ const NoticesList = ({ notices, onSelectNotice }) => {
 
           {/* Right Filters: Status & Search */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
-            
+
             {/* Status Select */}
             <select
               value={statusFilter}
@@ -117,10 +130,10 @@ const NoticesList = ({ notices, onSelectNotice }) => {
               key={notice.id}
               className="bg-white rounded-xl p-5 sm:p-6 border border-gray-100 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 group"
             >
-              
+
               {/* Left Side: Date Block & Content */}
               <div className="flex items-start gap-5 flex-grow">
-                
+
                 {/* Date Block (Matching the home RecentNotices design style with green left border) */}
                 <div className="border-l-3 border-brand-green pl-3 py-1 shrink-0 w-24">
                   <div className="text-xs font-bold text-gray-400 uppercase tracking-wider">
@@ -149,11 +162,10 @@ const NoticesList = ({ notices, onSelectNotice }) => {
                         Urgent
                       </span>
                     )}
-                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
-                      notice.status === 'Active' 
-                        ? 'bg-green-50 text-brand-olive' 
+                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${notice.status === 'Active'
+                        ? 'bg-green-50 text-brand-olive'
                         : 'bg-gray-100 text-gray-500'
-                    }`}>
+                      }`}>
                       {notice.status}
                     </span>
                   </div>
@@ -188,13 +200,23 @@ const NoticesList = ({ notices, onSelectNotice }) => {
                 </button>
 
                 <button
-                  onClick={() => alert(`Simulated download for: ${notice.title} (${notice.fileSize})`)}
+                  onClick={() => handleDownload(notice)}
                   className="border border-gray-200 text-gray-600 hover:text-brand-maroon hover:border-brand-maroon text-xs font-semibold px-3 py-2 rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer"
-                  title="Download PDF"
-                >
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                  </svg>
+                  title={
+                    notice.documentUrl
+                      ? `Download PDF (${notice.fileSize})`
+                      : 'PDF not available'
+                  }>
+                  <svg
+                    className="w-3.5 h-3.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                   <span className="hidden sm:inline">PDF</span>
                 </button>
               </div>
@@ -203,6 +225,12 @@ const NoticesList = ({ notices, onSelectNotice }) => {
           ))}
         </div>
       )}
+      {toast && (
+  <NoticeToast
+    message={toast}
+    onClose={() => setToast('')}
+  />
+)}
     </section>
   );
 };

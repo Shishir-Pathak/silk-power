@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Logo from '../Logo';
+import NoticeToast from './NoticeToast';
 
 const NoticeDetailModal = ({ notice, onClose }) => {
+  const [toast, setToast] = useState('');
+
+  const handleDownload = () => {
+    if (notice?.documentUrl) {
+      window.open(
+        notice.documentUrl,
+        '_blank',
+        'noopener,noreferrer'
+      );
+    } else {
+      setToast('The official PDF has not been uploaded yet.');
+    }
+  };
   if (!notice) return null;
 
   return (
@@ -161,23 +175,35 @@ const NoticeDetailModal = ({ notice, onClose }) => {
           {/* Bottom Actions */}
           <div className="mt-8 pt-4 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-3">
             <span className="text-xs text-gray-400">
-              Official Document Size: {notice.fileSize}
-            </span>
+  {notice.fileSize
+    ? `Official Document Size: ${notice.fileSize}`
+    : 'Official PDF not uploaded'}
+</span>
             <div className="flex items-center gap-2">
               <button
-                onClick={() => alert(`Simulated download for official PDF: ${notice.title} (${notice.fileSize})`)}
+                onClick={handleDownload}
                 className="bg-brand-maroon hover:bg-[#600000] text-white text-xs font-semibold px-5 py-2 rounded-full flex items-center gap-1.5 transition-colors cursor-pointer"
               >
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
-                Download Official PDF ({notice.fileSize})
+                {notice.documentUrl
+  ? `Download Official PDF (${notice.fileSize})`
+  : 'Download Official PDF'}
               </button>
             </div>
           </div>
 
         </div>
       </div>
+
+      {toast && (
+        <NoticeToast
+          message={toast}
+          onClose={() => setToast('')}
+        />
+      )}
+
     </div>
   );
 };
