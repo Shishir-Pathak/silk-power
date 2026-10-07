@@ -1,0 +1,88 @@
+from rest_framework import serializers
+
+from .models import (
+    AboutCompany,
+    FoundingPrinciple,
+    CompanyMilestone,
+    BoardMember,
+)
+
+
+class AboutCompanySerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = AboutCompany
+        fields = [
+            "id",
+            "title",
+            "paragraph_one",
+            "paragraph_two",
+            "paragraph_three",
+            "commitment_label",
+            "commitment_line_one",
+            "commitment_line_two",
+            "commitment_line_three",
+            "image",
+        ]
+
+    def get_image(self, obj):
+        if obj.image:
+            request = self.context.get("request")
+
+            if request:
+                return request.build_absolute_uri(obj.image.url)
+
+            return obj.image.url
+
+        return obj.image_url or None
+
+
+class FoundingPrincipleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FoundingPrinciple
+        fields = [
+            "id",
+            "title",
+            "description",
+            "icon",
+            "order",
+        ]
+
+
+class CompanyMilestoneSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CompanyMilestone
+        fields = [
+            "id",
+            "year",
+            "month",
+            "date",
+            "title",
+            "order",
+        ]
+
+
+class BoardMemberSerializer(serializers.ModelSerializer):
+    photo = serializers.SerializerMethodField()
+
+    class Meta:
+        model = BoardMember
+        fields = [
+            "id",
+            "name",
+            "role",
+            "photo",
+            "order",
+        ]
+
+    def get_photo(self, obj):
+        if not obj.photo:
+            return None
+
+        request = self.context.get("request")
+
+        if request:
+            return request.build_absolute_uri(obj.photo.url)
+
+        return obj.photo.url
