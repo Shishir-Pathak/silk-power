@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 
-class ProjectsConfig(AppConfig):
+class MediaConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "projects"
-    verbose_name = "Projects"
+    name = "media_app"
+    verbose_name = "Media"

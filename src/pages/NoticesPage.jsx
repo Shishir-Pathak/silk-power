@@ -22,7 +22,6 @@ const NoticesPage = () => {
         }
 
         const data = await response.json();
-
         const formattedNotices = data.map((notice) => {
           const date = new Date(`${notice.published_date}T00:00:00`);
 

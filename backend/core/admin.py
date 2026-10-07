@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ContactSubmission
+from .models import ContactSubmission, NoticeSubscriber
 from .models import ContactSubmission, SiteSettings
 from .models import (
     AboutCompany,
@@ -189,3 +189,15 @@ class SustainabilityGalleryItemAdmin(admin.ModelAdmin):
     )
 
     ordering = ("order",)
+
+@admin.register(NoticeSubscriber)
+class NoticeSubscriberAdmin(admin.ModelAdmin):
+    list_display = (
+        "email",
+        "is_active",
+        "subscribed_at",
+    )
+
+    list_filter = ("is_active",)
+    search_fields = ("email",)
+    readonly_fields = ("subscribed_at",)

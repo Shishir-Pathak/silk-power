@@ -41,11 +41,21 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 
-    # apps
-    'core',
-    'news',
-    'projects',
-    'investor',
+
+# Existing temporary apps
+'core',
+'news',
+
+# Frontend-aligned website apps
+'home.apps.HomeConfig',
+'about.apps.AboutConfig',
+'business.apps.BusinessConfig',
+'projects.apps.ProjectsConfig',
+'sustainability.apps.SustainabilityConfig',
+'notices.apps.NoticesConfig',
+'media_app.apps.MediaConfig',
+'investor.apps.InvestorConfig',
+'contact.apps.ContactConfig',
 ]
 
 MIDDLEWARE = [
