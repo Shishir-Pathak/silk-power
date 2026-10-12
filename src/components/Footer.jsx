@@ -1,28 +1,16 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import Logo from './Logo'; // 👈 Import the new Logo component
+import { Link } from 'react-router-dom';
+import Logo from './Logo';
 
 const Footer = () => {
-  const location = useLocation();
-  const isAboutPage = location.pathname === '/about';
-
   return (
-    <footer className={`${isAboutPage ? 'bg-[#1F4A2A]' : 'bg-[#7A1230]'} text-white py-10 px-4 lg:px-8 relative overflow-hidden transition-colors duration-300`}>
-      {/* Faint Background Leaf Graphic */}
-      <div className="absolute right-0 top-0 bottom-0 opacity-10 pointer-events-none">
-        <svg width="400" height="200" viewBox="0 0 200 100" fill="currentColor">
-          <path d="M100 0 C150 50, 200 100, 200 150 C150 200, 100 150, 100 100 C100 150, 50 200, 0 150 C0 100, 50 50, 100 0 Z" />
-        </svg>
-      </div>
-
+    <footer className="bg-[#7A1230] text-white py-10 px-4 lg:px-8 relative overflow-hidden transition-colors duration-300">
       <div className="container mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 items-center">
           
           {/* 1. Logo & Tagline (Col span 4) */}
           <div className="lg:col-span-4 flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
-            {/* Replaced old SVG with Logo component */}
-          {/* Replaced old SVG with Logo component */}
-<Logo color="#FFFFFF" className="h-12 w-auto" />
+            <Logo color="#FFFFFF" className="h-12 w-auto" />
             
             {/* Divider */}
             <div className="hidden sm:block w-px h-12 bg-white/30"></div>
