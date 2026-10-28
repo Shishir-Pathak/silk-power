@@ -1,5 +1,5 @@
+from unfold.admin import ModelAdmin
 from django.contrib import admin
-
 from .models import (
     BusinessOverview,
     BusinessPillar,
@@ -8,12 +8,12 @@ from .models import (
 
 
 @admin.register(BusinessOverview)
-class BusinessOverviewAdmin(admin.ModelAdmin):
+class BusinessOverviewAdmin(ModelAdmin):
     list_display = ("title",)
 
 
 @admin.register(BusinessPillar)
-class BusinessPillarAdmin(admin.ModelAdmin):
+class BusinessPillarAdmin(ModelAdmin):
     list_display = (
         "title",
         "icon",
@@ -30,7 +30,7 @@ class BusinessPillarAdmin(admin.ModelAdmin):
 
 
 @admin.register(BusinessArea)
-class BusinessAreaAdmin(admin.ModelAdmin):
+class BusinessAreaAdmin(ModelAdmin):
     list_display = (
         "title",
         "icon",

@@ -1,10 +1,11 @@
 
+from unfold.admin import ModelAdmin
 from django.contrib import admin
 from .models import ContactSubmission
 
 
 @admin.register(ContactSubmission)
-class ContactSubmissionAdmin(admin.ModelAdmin):
+class ContactSubmissionAdmin(ModelAdmin):
 
     list_display = (
         'reference_number',

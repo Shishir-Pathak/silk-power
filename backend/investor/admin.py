@@ -1,9 +1,11 @@
+from unfold.admin import ModelAdmin
 from django.contrib import admin
 from .models import InvestorStat, InvestorDocument, InvestorFAQ
 
 
+
 @admin.register(InvestorStat)
-class InvestorStatAdmin(admin.ModelAdmin):
+class InvestorStatAdmin(ModelAdmin):
     list_display = (
         'label',
         'value',
@@ -29,7 +31,7 @@ class InvestorStatAdmin(admin.ModelAdmin):
 
 
 @admin.register(InvestorDocument)
-class InvestorDocumentAdmin(admin.ModelAdmin):
+class InvestorDocumentAdmin(ModelAdmin):
     list_display = (
         'title',
         'display_date',
@@ -54,7 +56,7 @@ class InvestorDocumentAdmin(admin.ModelAdmin):
 
 
 @admin.register(InvestorFAQ)
-class InvestorFAQAdmin(admin.ModelAdmin):
+class InvestorFAQAdmin(ModelAdmin):
     list_display = (
         'question',
         'order',

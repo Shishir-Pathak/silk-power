@@ -1,5 +1,5 @@
+from unfold.admin import ModelAdmin
 from django.contrib import admin
-
 from .models import (
     SustainabilityInitiative,
     SustainabilityGalleryItem,
@@ -7,7 +7,7 @@ from .models import (
 
 
 @admin.register(SustainabilityInitiative)
-class SustainabilityInitiativeAdmin(admin.ModelAdmin):
+class SustainabilityInitiativeAdmin(ModelAdmin):
     list_display = (
         "title",
         "icon",
@@ -24,7 +24,7 @@ class SustainabilityInitiativeAdmin(admin.ModelAdmin):
 
 
 @admin.register(SustainabilityGalleryItem)
-class SustainabilityGalleryItemAdmin(admin.ModelAdmin):
+class SustainabilityGalleryItemAdmin(ModelAdmin):
     list_display = (
         "title",
         "subtitle",

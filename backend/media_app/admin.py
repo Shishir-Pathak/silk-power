@@ -1,6 +1,6 @@
 
+from unfold.admin import ModelAdmin
 from django.contrib import admin
-
 from .models import (
     MediaArticle,
     ArticleParagraph,
@@ -21,7 +21,7 @@ class ArticleHighlightInline(admin.TabularInline):
 
 
 @admin.register(MediaArticle)
-class MediaArticleAdmin(admin.ModelAdmin):
+class MediaArticleAdmin(ModelAdmin):
     list_display = (
         "title",
         "category",
@@ -53,7 +53,7 @@ class MediaArticleAdmin(admin.ModelAdmin):
 
 
 @admin.register(GalleryImage)
-class GalleryImageAdmin(admin.ModelAdmin):
+class GalleryImageAdmin(ModelAdmin):
     list_display = (
         "title",
         "category",
@@ -69,7 +69,7 @@ class GalleryImageAdmin(admin.ModelAdmin):
 
 
 @admin.register(MediaVideo)
-class MediaVideoAdmin(admin.ModelAdmin):
+class MediaVideoAdmin(ModelAdmin):
     list_display = (
         "title",
         "published_date",

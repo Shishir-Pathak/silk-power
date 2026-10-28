@@ -1,3 +1,4 @@
+from unfold.admin import ModelAdmin
 from django.contrib import admin
 from .models import Project, ProjectSpecification, ProjectGalleryImage
 
@@ -13,7 +14,7 @@ class ProjectGalleryImageInline(admin.TabularInline):
 
 
 @admin.register(Project)
-class ProjectAdmin(admin.ModelAdmin):
+class ProjectAdmin(ModelAdmin):
     list_display = (
         'name',
         'capacity',
@@ -45,7 +46,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 @admin.register(ProjectSpecification)
-class ProjectSpecificationAdmin(admin.ModelAdmin):
+class ProjectSpecificationAdmin(ModelAdmin):
     list_display = (
         'project',
         'parameter',
@@ -61,7 +62,7 @@ class ProjectSpecificationAdmin(admin.ModelAdmin):
 
 
 @admin.register(ProjectGalleryImage)
-class ProjectGalleryImageAdmin(admin.ModelAdmin):
+class ProjectGalleryImageAdmin(ModelAdmin):
     list_display = (
         'project',
         'caption',

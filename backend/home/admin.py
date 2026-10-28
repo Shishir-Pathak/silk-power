@@ -1,9 +1,10 @@
+from unfold.admin import ModelAdmin
 from django.contrib import admin
 from .models import SiteSettings
 
 
 @admin.register(SiteSettings)
-class SiteSettingsAdmin(admin.ModelAdmin):
+class SiteSettingsAdmin(ModelAdmin):
     list_display = (
         "company_name",
         "registered_office",

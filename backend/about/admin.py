@@ -1,5 +1,5 @@
+from unfold.admin import ModelAdmin
 from django.contrib import admin
-
 from .models import (
     AboutCompany,
     FoundingPrinciple,
@@ -9,7 +9,7 @@ from .models import (
 
 
 @admin.register(AboutCompany)
-class AboutCompanyAdmin(admin.ModelAdmin):
+class AboutCompanyAdmin(ModelAdmin):
     list_display = (
         "title",
         "commitment_label",
@@ -17,7 +17,7 @@ class AboutCompanyAdmin(admin.ModelAdmin):
 
 
 @admin.register(FoundingPrinciple)
-class FoundingPrincipleAdmin(admin.ModelAdmin):
+class FoundingPrincipleAdmin(ModelAdmin):
     list_display = (
         "title",
         "icon",
@@ -42,7 +42,7 @@ class FoundingPrincipleAdmin(admin.ModelAdmin):
 
 
 @admin.register(CompanyMilestone)
-class CompanyMilestoneAdmin(admin.ModelAdmin):
+class CompanyMilestoneAdmin(ModelAdmin):
     list_display = (
         "year",
         "month",
@@ -69,7 +69,7 @@ class CompanyMilestoneAdmin(admin.ModelAdmin):
 
 
 @admin.register(BoardMember)
-class BoardMemberAdmin(admin.ModelAdmin):
+class BoardMemberAdmin(ModelAdmin):
     list_display = (
         "name",
         "role",

@@ -1,3 +1,4 @@
+from unfold.admin import ModelAdmin
 from django.contrib import admin
 from .models import Notice, NoticeAgenda, NoticeSubscriber
 
@@ -9,7 +10,7 @@ class NoticeAgendaInline(admin.TabularInline):
 
 
 @admin.register(Notice)
-class NoticeAdmin(admin.ModelAdmin):
+class NoticeAdmin(ModelAdmin):
     list_display = (
         'title',
         'category',
@@ -38,7 +39,7 @@ class NoticeAdmin(admin.ModelAdmin):
     inlines = [NoticeAgendaInline]
 
 @admin.register(NoticeSubscriber)
-class NoticeSubscriberAdmin(admin.ModelAdmin):
+class NoticeSubscriberAdmin(ModelAdmin):
     list_display = (
         "email",
         "is_active",
