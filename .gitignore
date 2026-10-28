@@ -36,3 +36,15 @@ backend/media/
 .env
 .DS_Store
 db.sqlite3.before-restructure
+
+# Local database and migration backups
+*.sqlite3
+*.sqlite3-*
+*.before-*
+*.failed-*
+
+# Local database and migration backups
+*.sqlite3
+*.sqlite3-*
+*.before-*
+*.failed-*
