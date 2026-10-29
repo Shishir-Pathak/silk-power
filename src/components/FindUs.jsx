@@ -110,10 +110,7 @@ const FindUs = () => {
 
             </div>
 
-            <div className="mt-10 flex flex-col gap-1 text-xs tracking-widest uppercase font-semibold text-brand-olive">
-              <span>Cleaner Energy</span>
-              <span>Stronger Nepal</span>
-            </div>
+        
           </div>
 
           {/* RIGHT SIDE - KEEP EXISTING MAP */}
