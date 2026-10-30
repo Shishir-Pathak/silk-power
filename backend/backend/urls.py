@@ -16,16 +16,46 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
+from django.contrib.admin.views.decorators import staff_member_required
 from django.conf import settings
 from django.conf.urls.static import static
 
+from core.dashboard import dashboard_view
+
+def admin_index_redirect(request, extra_context=None):
+    return redirect("management-dashboard")
+
+
+admin.site.index = admin_index_redirect
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('news.urls')),
-    path('api/', include('core.urls')),
-    path('api/', include('projects.urls')),
-    path('api/', include('investor.urls')),
+    path(
+        "admin/",
+        admin.site.urls,
+    ),
+    path("accounts/", include("django.contrib.auth.urls")),
+
+    path(
+        "dashboard/",
+        staff_member_required(dashboard_view),
+        name="management-dashboard",
+    ),
+
+    path(
+        "",
+        staff_member_required(lambda request: redirect("/dashboard/")),
+    ),
+
+    path("api/", include("media_app.urls")),
+    path("api/about/", include("about.urls")),
+    path("api/business/", include("business.urls")),
+    path("api/sustainability/", include("sustainability.urls")),
+    path("api/notices/", include("notices.urls")),
+    path("api/", include("home.urls")),
+    path("api/", include("projects.urls")),
+    path("api/", include("investor.urls")),
+    path("api/", include("contact.urls")),
 ]
 
 

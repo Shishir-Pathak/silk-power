@@ -6,9 +6,9 @@ from pathlib import Path
 from django.core.management.base import BaseCommand
 from django.utils.text import slugify
 
-from news.models import (
-    Notice,
-    NoticeAgenda,
+from notices.models import Notice, NoticeAgenda
+
+from media_app.models import (
     MediaArticle,
     ArticleParagraph,
     ArticleHighlight,

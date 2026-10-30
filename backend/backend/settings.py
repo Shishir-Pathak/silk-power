@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'unfold',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,12 +42,22 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 
-    # apps
     'core',
     'news',
-    'projects',
-    'investor',
+
+    'home.apps.HomeConfig',
+    'about.apps.AboutConfig',
+    'business.apps.BusinessConfig',
+    'projects.apps.ProjectsConfig',
+    'sustainability.apps.SustainabilityConfig',
+    'notices.apps.NoticesConfig',
+    'media_app.apps.MediaConfig',
+    'investor.apps.InvestorConfig',
+    'contact.apps.ContactConfig',
 ]
+LOGIN_URL = "/accounts/login/"
+LOGIN_REDIRECT_URL = "/dashboard/"
+LOGOUT_REDIRECT_URL = "/accounts/login/"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -64,7 +75,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -145,4 +156,145 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
+}
+
+from django.urls import reverse_lazy
+
+UNFOLD = {
+    "SITE_TITLE": "Silk Power | Admin",
+    "SITE_HEADER": "SILK POWER",
+    "SITE_SUBHEADER": "Management Dashboard",
+    "SITE_SYMBOL": "bolt",
+    "SITE_URL": "/",
+    "SHOW_HISTORY": True,
+    "SHOW_VIEW_ON_SITE": True,
+    "THEME": "light",
+    "BORDER_RADIUS": "8px",
+
+    "SIDEBAR": {
+        "show_search": True,
+        "show_all_applications": False,
+        "navigation": [
+            {
+                "title": "MAIN",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Dashboard",
+                        "icon": "dashboard",
+                        "link": reverse_lazy("management-dashboard"),
+                    },
+                ],
+            },
+            {
+                "title": "WEBSITE CONTENT",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Home Settings",
+                        "icon": "home",
+                        "link": reverse_lazy("admin:home_sitesettings_changelist"),
+                    },
+                    {
+                        "title": "About Us",
+                        "icon": "info",
+                        "link": reverse_lazy("admin:about_aboutcompany_changelist"),
+                    },
+                    {
+                        "title": "Founding Principles",
+                        "icon": "lightbulb",
+                        "link": reverse_lazy("admin:about_foundingprinciple_changelist"),
+                    },
+                    {
+                        "title": "Milestones",
+                        "icon": "timeline",
+                        "link": reverse_lazy("admin:about_companymilestone_changelist"),
+                    },
+                    {
+                        "title": "Board Members",
+                        "icon": "groups",
+                        "link": reverse_lazy("admin:about_boardmember_changelist"),
+                    },
+                    {
+                        "title": "Business",
+                        "icon": "business",
+                        "link": reverse_lazy("admin:business_businessoverview_changelist"),
+                    },
+                    {
+                        "title": "Projects",
+                        "icon": "engineering",
+                        "link": reverse_lazy("admin:projects_project_changelist"),
+                    },
+                    {
+                        "title": "Sustainability",
+                        "icon": "eco",
+                        "link": reverse_lazy("admin:sustainability_sustainabilityinitiative_changelist"),
+                    },
+                ],
+            },
+            {
+                "title": "NEWS & MEDIA",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Notices",
+                        "icon": "campaign",
+                        "link": reverse_lazy("admin:notices_notice_changelist"),
+                    },
+                    {
+                        "title": "Subscribers",
+                        "icon": "mail",
+                        "link": reverse_lazy("admin:notices_noticesubscriber_changelist"),
+                    },
+                    {
+                        "title": "Media Articles",
+                        "icon": "article",
+                        "link": reverse_lazy("admin:media_app_mediaarticle_changelist"),
+                    },
+                    {
+                        "title": "Gallery",
+                        "icon": "photo_library",
+                        "link": reverse_lazy("admin:media_app_galleryimage_changelist"),
+                    },
+                    {
+                        "title": "Videos",
+                        "icon": "video_library",
+                        "link": reverse_lazy("admin:media_app_mediavideo_changelist"),
+                    },
+                ],
+            },
+            {
+                "title": "INVESTOR RELATIONS",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Investor Statistics",
+                        "icon": "analytics",
+                        "link": reverse_lazy("admin:investor_investorstat_changelist"),
+                    },
+                    {
+                        "title": "Documents",
+                        "icon": "description",
+                        "link": reverse_lazy("admin:investor_investordocument_changelist"),
+                    },
+                    {
+                        "title": "FAQs",
+                        "icon": "help",
+                        "link": reverse_lazy("admin:investor_investorfaq_changelist"),
+                    },
+                ],
+            },
+            {
+                "title": "COMMUNICATION",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Contact Messages",
+                        "icon": "contact_mail",
+                        "link": reverse_lazy("admin:contact_contactsubmission_changelist"),
+                    },
+                ],
+            },
+        ],
+    },
 }

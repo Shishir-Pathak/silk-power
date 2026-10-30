@@ -108,9 +108,7 @@ const FindUs = () => {
                 </div>
               </div>
 
-            </div>
-
-        
+            </div>        
           </div>
 
           {/* RIGHT SIDE - KEEP EXISTING MAP */}

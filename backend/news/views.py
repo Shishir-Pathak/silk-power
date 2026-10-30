@@ -1,29 +1,16 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 
 from .models import (
-    Notice,
     MediaArticle,
     GalleryImage,
     MediaVideo,
 )
 
 from .serializers import (
-    NoticeSerializer,
     MediaArticleSerializer,
     GalleryImageSerializer,
     MediaVideoSerializer,
 )
-
-
-class NoticeListAPIView(ListAPIView):
-    queryset = Notice.objects.all()
-    serializer_class = NoticeSerializer
-
-
-class NoticeDetailAPIView(RetrieveAPIView):
-    queryset = Notice.objects.all()
-    serializer_class = NoticeSerializer
-    lookup_field = 'slug'
 
 
 class MediaArticleListAPIView(ListAPIView):

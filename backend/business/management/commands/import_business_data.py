@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from core.models import (
+from business.models import (
     BusinessOverview,
     BusinessPillar,
     BusinessArea,
